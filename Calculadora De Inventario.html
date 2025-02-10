@@ -1,0 +1,500 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <title>Formulario de Productos</title>  
+  <style>  
+    /* ===============================  
+       ESTILOS GENERALES Y DEL FORMULARIO  
+       =============================== */  
+    body {  
+      font-family: Arial, sans-serif;  
+      background-color: #f5f5dc; /* beige */  
+      margin: 0;  
+      padding: 15px;  
+    }  
+    .container {  
+      max-width: 600px;  
+      margin: auto;  
+      background-color: #fff;  
+      padding: 15px;  
+      border-radius: 8px;  
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);  
+    }  
+    h1 {  
+      text-align: center;  
+      font-size: 1.5rem;  
+      color: #333;  
+    }  
+    table {  
+      width: 100%;  
+      border-collapse: collapse;  
+      margin-bottom: 20px;  
+    }  
+    th, td {  
+      padding: 1px;  
+      text-align: left;  
+    }  
+    th {  
+      background-color: #e0f7fa; /* azul celeste suave */  
+    }  
+    input[type="text"],  
+    select {  
+      width: 100%;  
+      padding: 8px;  
+      border: 1px solid #ccc;  
+      border-radius: 4px;  
+      box-sizing: border-box;  
+    }  
+    input[type="text"]:focus,  
+    select:focus {  
+      border-color: #66afe9;  
+     outline: 2px double #66afe9;
+    }  
+    .form-group {  
+      margin-bottom: 15px;  
+    }  
+    label {  
+      display: block;  
+      margin-bottom: 5px;  
+      font-weight: bold;  
+    }  
+    button {  
+      background-color: #66afe9;  
+      color: #fff;  
+      padding: 10px 15px;  
+      border: none;  
+      border-radius: 4px;  
+      cursor: pointer;  
+    }  
+    button:hover {  
+      background-color: #559fd6;  
+    }  
+    /* ===============================  
+       ESTILOS PARA AGRUPAR OPCIONES EN EL DATALIST  
+       =============================== */  
+    /* Nota: El estilo de los elementos <optgroup> en un <datalist> depende del navegador,   
+       por lo que puede no aplicarse en todos los casos. */  
+    datalist optgroup {  
+      border-top: 2px solid #66afe9;  
+      margin-top: 4px;  
+      padding-top: 4px;  
+      font-weight: bold;  
+    }  
+    /* ===============================  
+       ESTILOS PARA EL GRUPO DE BOTONES  
+       =============================== */  
+    .button-group {  
+      display: flex;  
+      justify-content: space-between;  
+    }  
+  </style>  
+</head>  
+<body>  
+  <div class="container">  
+    <h1>Formulario de Productos</h1>  
+    <form id="productForm">  
+      <!-- Tabla de Productos -->  
+      <table id="productTable">  
+        <thead>  
+          <tr>  
+            <th style="width:50%;">Producto</th>  
+            <th style="width:50%;">Cantidad (Operación)</th>  
+          </tr>  
+        </thead>  
+        <tbody>  
+          <!-- Las filas se agregarán dinámicamente -->  
+        </tbody>  
+      </table>  
+      <!-- Datos adicionales para el envío vía WhatsApp -->  
+      <div class="form-group">  
+        <label for="sender">Enviado por:</label>  
+        <input type="text" id="sender" placeholder="Nombre del remitente" required>  
+      </div>  
+      <div class="form-group">  
+        <label for="branch">Sede:</label>  
+        <input type="text" id="branch" placeholder="Sede de envío" required>  
+      </div>  
+      <div class="form-group">  
+        <label for="summaryType">Tipo de Resumen:</label>  
+        <select id="summaryType" required>  
+          <option value="" disabled selected>Seleccione una opción</option>  
+          <option value="Cierre">Cierre</option>  
+          <option value="Apertura">Apertura</option>  
+          <option value="Productos que entraron">Productos que entraron</option>  
+        </select>  
+      </div>  
+      <!-- Grupo de botones -->  
+      <div class="button-group">  
+        <button type="button" id="clearButton">🗑️ Limpiar</button>  
+        <button type="button" id="sendButton">Enviar Resumen por WhatsApp</button>  
+      </div>  
+    </form>  
+  </div>  
+  
+  <!-- ===============================  
+       DATOLIST CON LOS PRODUCTOS AGRUPADOS POR CATEGORÍAS  
+       =============================== -->  
+  <datalist id="productList">  
+    <optgroup label="Cerveza">  
+      <option value="Poker">  
+      <option value="Aguila">  
+      <option value="Coronita">  
+      <option value="Light">  
+      <option value="Budweiser">  
+      <option value="Club Colombia">  
+      <option value="Costeña Bacana">  
+      <option value="Costeña">  
+      <option value="Heineken">  
+    </optgroup>  
+    <optgroup label="Licor">  
+      <option value="Litro Amarillo">  
+      <option value="Nectar litro">  
+      <option value="Litro Antioqueño">  
+      <option value="Litro Viejo De Caldas">  
+      <option value="Old Parr">  
+      <option value="Bacardi">  
+      <option value="Smirnoff">  
+      <option value="Something Special">  
+      <option value="Brandy Domecq">  
+      <option value="Nectar 1/2">  
+      <option value="Antioqueño 1/2">  
+      <option value="Ron Caldas 1/2">  
+      <option value="Antioqueño 1/4">  
+      <option value="Nectar 1/4">  
+      <option value="Smirnoff 275">  
+      <option value="Like">  
+    </optgroup>  
+    <optgroup label="Jugos y Gaseosas">  
+      <option value="Bretaña">  
+      <option value="Electrolit">  
+      <option value="Cocacola 250">  
+      <option value="Speed Max">  
+      <option value="Pony">  
+      <option value="Cola y Pola">  
+      <option value="Vive">  
+      <option value="Vive Grande">  
+      <option value="Gatorade">  
+      <option value="Hit 500">  
+      <option value="Jugos Cifrut">  
+      <option value="Cocacola 400">  
+      <option value="Gaseosa">  
+      <option value="Agua">  
+      <option value="Agua con gas">  
+    </optgroup>  
+    <optgroup label="Latas">  
+      <option value="Poker lata">  
+      <option value="Club lata">  
+      <option value="Redss lata">  
+    </optgroup>  
+    <optgroup label="Paquetes">  
+      <option value="Chitos">  
+      <option value="Todorico NT">  
+      <option value="todorico 160">  
+      <option value="Chicharrón">  
+      <option value="Papas">  
+    </optgroup>  
+    <optgroup label="Cigarros">  
+      <option value="Mustang">  
+      <option value="Lucky">  
+      <option value="Marlboro">  
+    </optgroup>  
+    <optgroup label="Dulces">  
+      <option value="Trident">  
+      <option value="Bonfiets">  
+    </optgroup>  
+    <optgroup label="Base">  
+      <option value="Bolas Rana">  
+      <option value="Moneda">  
+      <option value="Billete">  
+    </optgroup>  
+  </datalist>  
+  
+  <!-- ===============================  
+       SCRIPT: FUNCIONALIDAD DEL FORMULARIO  
+       =============================== -->  
+  <script>  
+    document.addEventListener('DOMContentLoaded', function() {  
+      const productTableBody = document.querySelector('#productTable tbody');  
+      const sendButton = document.getElementById('sendButton');  
+      const clearButton = document.getElementById('clearButton');  
+      const form = document.getElementById('productForm');  
+  
+      // Función que convierte un número en una cadena de emojis por dígito  
+      function formatEmojiNumber(num) {  
+        const digitMap = {  
+          '0': '0️⃣',  
+          '1': '1️⃣',  
+          '2': '2️⃣',  
+          '3': '3️⃣',  
+          '4': '4️⃣',  
+          '5': '5️⃣',  
+          '6': '6️⃣',  
+          '7': '7️⃣',  
+          '8': '8️⃣',  
+          '9': '9️⃣'  
+        };  
+        return num.toString().split('').map(digit => digitMap[digit]).join('');  
+      }  
+  
+      // Función para agregar una nueva fila  
+      function addRow() {  
+        const row = document.createElement('tr');  
+  
+        // Celda de Producto  
+        const productCell = document.createElement('td');  
+        const productInput = document.createElement('input');  
+        productInput.type = 'text';  
+        productInput.placeholder = 'Producto';  
+        productInput.setAttribute('list', 'productList');  
+        // Al perder el foco se revisa duplicidad y se activa el autocompletado  
+        productInput.addEventListener('blur', handleProductBlur);  
+        // Al escribir se evalúa si es la última fila y se añade una nueva  
+        productInput.addEventListener('input', handleProductInput);  
+        productCell.appendChild(productInput);  
+        row.appendChild(productCell);  
+  
+        // Celda de Cantidad (acepta operaciones)  
+        const quantityCell = document.createElement('td');  
+        const quantityInput = document.createElement('input');  
+        quantityInput.type = 'text';  
+        quantityInput.placeholder = 'Ej: 2 2 -2 2*4';  
+        // En focus se muestra la operación original almacenada (si existe)  
+        quantityInput.addEventListener('focus', handleQuantityFocus);  
+        // En blur se evalúa la operación y se muestra el resultado  
+        quantityInput.addEventListener('blur', handleQuantityBlur);  
+        quantityCell.appendChild(quantityInput);  
+        row.appendChild(quantityCell);  
+  
+        productTableBody.appendChild(row);  
+        saveFormData();  
+      }  
+  
+      // Comprueba si el input corresponde a la última fila  
+      function isLastRow(input) {  
+        const rows = productTableBody.querySelectorAll('tr');  
+        if (rows.length === 0) return false;  
+        const lastRow = rows[rows.length - 1];  
+        return lastRow.contains(input);  
+      }  
+  
+      // Si se escriben al menos 2 caracteres en el input de producto, y es la última fila, se añade una nueva  
+      function handleProductInput(e) {  
+        const input = e.target;  
+        if (input.value.trim().length >= 2 && isLastRow(input)) {  
+          addRow();  
+        }  
+        saveFormData();  
+      }  
+  
+      // Al perder el foco en el producto se verifica si ya existe en otra fila (para evitar duplicidad)  
+      function handleProductBlur(e) {  
+        const input = e.target;  
+        const productValue = input.value.trim().toLowerCase();  
+        if (!productValue) return;  
+        // Recorrer todos los inputs de producto  
+        const allProductInputs = productTableBody.querySelectorAll('input[placeholder="Producto"]');  
+        let duplicateFound = false;  
+        allProductInputs.forEach(otherInput => {  
+          if (otherInput !== input && otherInput.value.trim().toLowerCase() === productValue) {  
+            duplicateFound = true;  
+            // Si se encuentra duplicado, se mueve el foco al input de cantidad de la fila existente  
+            const quantityInput = otherInput.parentElement.nextElementSibling.querySelector('input');  
+            if (quantityInput) {  
+              quantityInput.focus();  
+            }  
+          }  
+        });  
+        // En caso de duplicado se limpia el input actual  
+        if (duplicateFound) {  
+          input.value = '';  
+        }  
+        saveFormData();  
+      }  
+  
+      // En el input de cantidad, al obtener el foco se restaura la operación original (si fue evaluada previamente)  
+      function handleQuantityFocus(e) {  
+        const input = e.target;  
+        if (input.dataset.original) {  
+          input.value = input.dataset.original;  
+        }  
+      }  
+  
+      // Al perder el foco en la cantidad se evalúa la operación matemática  
+      function handleQuantityBlur(e) {  
+        const input = e.target;  
+        const expr = input.value.trim();  
+        if (!expr) return;  
+        // Guardar la operación original en un atributo de datos  
+        input.dataset.original = expr;  
+        try {  
+          // Separa la cadena por espacios para evaluar cada “token”  
+          const tokens = expr.split(/\s+/);  
+          let total = 0;  
+          tokens.forEach(token => {  
+            if (token) {  
+              // Se utiliza eval para evaluar operaciones básicas (suma, resta, multiplicación)  
+              // Nota: en un entorno de producción se debe validar la cadena o utilizar un parser matemático  
+              total += eval(token);  
+            }  
+          });  
+          input.value = total;  
+        } catch (error) {  
+          input.value = "Error";  
+        }  
+        saveFormData();  
+      }  
+  
+      // Función para guardar los datos del formulario en localStorage  
+      function saveFormData() {  
+        const data = {};  
+        data.sender = document.getElementById('sender').value;  
+        data.branch = document.getElementById('branch').value;  
+        data.summaryType = document.getElementById('summaryType').value;  
+        data.products = [];  
+        const rows = productTableBody.querySelectorAll('tr');  
+        rows.forEach(row => {  
+          const productInput = row.querySelector('input[placeholder="Producto"]');  
+          const quantityInput = row.querySelector('input[placeholder="Ej: 2 2 -2 2*4"]');  
+          data.products.push({  
+            product: productInput ? productInput.value : '',  
+            quantity: quantityInput ? quantityInput.value : ''  
+          });  
+        });  
+        localStorage.setItem('productFormData', JSON.stringify(data));  
+      }  
+  
+      // Función para cargar los datos del formulario desde localStorage  
+      function loadFormData() {  
+        const data = localStorage.getItem('productFormData');  
+        if (!data) {  
+          addRow();  
+          return;  
+        }  
+        const parsedData = JSON.parse(data);  
+        document.getElementById('sender').value = parsedData.sender || '';  
+        document.getElementById('branch').value = parsedData.branch || '';  
+        document.getElementById('summaryType').value = parsedData.summaryType || '';  
+        productTableBody.innerHTML = '';  
+        if (parsedData.products && parsedData.products.length > 0) {  
+          parsedData.products.forEach(rowData => {  
+            const row = document.createElement('tr');  
+            // Celda de Producto  
+            const productCell = document.createElement('td');  
+            const productInput = document.createElement('input');  
+            productInput.type = 'text';  
+            productInput.placeholder = 'Producto';  
+            productInput.setAttribute('list', 'productList');  
+            productInput.value = rowData.product || '';  
+            productInput.addEventListener('blur', handleProductBlur);  
+            productInput.addEventListener('input', handleProductInput);  
+            productCell.appendChild(productInput);  
+            row.appendChild(productCell);  
+            // Celda de Cantidad  
+            const quantityCell = document.createElement('td');  
+            const quantityInput = document.createElement('input');  
+            quantityInput.type = 'text';  
+            quantityInput.placeholder = 'Ej: 2 2 -2 2*4';  
+            quantityInput.value = rowData.quantity || '';  
+            quantityInput.addEventListener('focus', handleQuantityFocus);  
+            quantityInput.addEventListener('blur', handleQuantityBlur);  
+            quantityCell.appendChild(quantityInput);  
+            row.appendChild(quantityCell);  
+            productTableBody.appendChild(row);  
+          });  
+        }  
+        // Asegurarse de tener una fila vacía al final  
+        const rows = productTableBody.querySelectorAll('tr');  
+        if (rows.length === 0 || (rows[rows.length - 1].querySelector('input[placeholder="Producto"]').value.trim() !== '')) {  
+          addRow();  
+        }  
+      }  
+  
+      // Función para enviar el resumen vía WhatsApp  
+      function enviarResumen() {  
+        // Validar que se hayan completado los campos obligatorios  
+        const sender = document.getElementById('sender').value.trim();  
+        const branch = document.getElementById('branch').value.trim();  
+        const summaryType = document.getElementById('summaryType').value;  
+        if (!sender || !branch || !summaryType) {  
+          alert("Por favor, complete los campos obligatorios: Enviado por, Sede y Tipo de Resumen.");  
+          return;  
+        }  
+        // Asegurarse de que todos los inputs de cantidad muestren el resultado (forzar blur)  
+        const quantityInputs = productTableBody.querySelectorAll('input[placeholder="Ej: 2 2 -2 2*4"]');  
+        quantityInputs.forEach(input => input.blur());  
+  
+        // Recopilar los productos ingresados  
+        const rows = productTableBody.querySelectorAll('tr');  
+        let productsSummary = "";  
+        let count = 1;  
+        rows.forEach(row => {  
+          const productInput = row.querySelector('input[placeholder="Producto"]');  
+          const quantityInput = row.querySelector('input[placeholder="Ej: 2 2 -2 2*4"]');  
+          if (productInput && productInput.value.trim() !== "") {  
+            // Se usa el valor mostrado (resultado de la operación)  
+            const qty = quantityInput ? quantityInput.value.trim() : "";  
+            productsSummary += `${formatEmojiNumber(count)} ${productInput.value.trim()} - ${qty} unidades\n`;  
+            count++;  
+          }  
+        });  
+        if (productsSummary === "") {  
+          alert("Por favor, ingrese al menos un producto.");  
+          return;  
+        }  
+        // Obtener la fecha y hora actual en formato deseado (Ej: 8:22 Dom, 9 de feb)  
+        const now = new Date();  
+        const daysOfWeek = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];  
+        const months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];  
+        const hours = now.getHours();  
+        const minutes = now.getMinutes().toString().padStart(2, '0');  
+        const dayOfWeek = daysOfWeek[now.getDay()];  
+        const day = now.getDate();  
+        const month = months[now.getMonth()];  
+        const formattedDate = `${dayOfWeek}, ${day} de ${month} ${hours}:${minutes}`;  
+  
+        // Construir el mensaje formateado para WhatsApp  
+        const message =   
+`📌 *Resumen de Productos* 📌  
+  
+📅 ${formattedDate}  
+🏢 *Sede:* ${branch}  
+👤 *Enviado por:* ${sender}  
+  
+📦 *Productos:*  
+${productsSummary}
+📋 *Tipo de Resumen:* ${summaryType}`;  
+  
+        // Se utiliza la API de WhatsApp para enviar el mensaje (se abre en una nueva pestaña)  
+        const url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);  
+        window.open(url, '_blank');  
+      }  
+  
+      // Evento para el botón de envío  
+      sendButton.addEventListener('click', enviarResumen);  
+  
+      // Evento para el botón de limpiar  
+      clearButton.addEventListener('click', function() {  
+        if (confirm("Esto borrara todo el contenido del formulario")) {  
+          form.reset();  
+          productTableBody.innerHTML = "";  
+          addRow();  
+          localStorage.removeItem('productFormData');  
+        }  
+      });  
+  
+      // Guardar datos cuando se modifiquen los campos adicionales  
+      document.getElementById('sender').addEventListener('input', saveFormData);  
+      document.getElementById('branch').addEventListener('input', saveFormData);  
+      document.getElementById('summaryType').addEventListener('change', saveFormData);  
+  
+      // También se puede guardar cada vez que haya algún cambio en el formulario  
+      form.addEventListener('input', saveFormData);  
+  
+      // Cargar datos del formulario al iniciar  
+      loadFormData();  
+    });  
+  </script>  
+</body>  
+</html>
